@@ -1,0 +1,738 @@
+{
+	"info": {
+		"_postman_id": "7182e57e-4f7f-4120-944d-7fd83168d924",
+		"name": "SETARE MPA",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Files",
+			"item": [
+				{
+					"name": "getOne",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{url}}/files/1644273355273.jpg",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"files",
+								"1644273355273.jpg"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getOneByTkn",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"url": {
+							"raw": "{{url}}/api/files/1644116915926.jpg",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"files",
+								"1644116915926.jpg"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "uploadOne",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "file",
+									"type": "file",
+									"src": "/C:/Users/Francisco/Documents/NUBE/Archivos/foto.jpg"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{url}}/files",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"files"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "generateToken",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{url}}/files/tkn",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"files",
+								"tkn"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Procedure",
+			"item": [
+				{
+					"name": "createOne",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"company\": \"idCompany1\",\r\n  \"procedureType\": \"HAB\",\r\n  \"currentStage\": 0,\r\n  \"data\": {\r\n    \"fut\": 1,\r\n    \"expNum\": \"1231231\",\r\n    \"ownerDocType\": \"12312312\",\r\n    \"ownerDoc\": \"12312312\",\r\n    \"ownerName\": \"nombre sape\",\r\n    \"ownerLastName\": \"apellido sape\",\r\n    \"ownerBirthday\": \"12-12-21\",\r\n    \"ownerAddress\": \"asdfas\",\r\n    \"ownerDistrict\": \"asdfas\",\r\n    \"ownerEmail\": \"eafsdsa@sape.com\",\r\n    \"ownerPhone\": \"asdfasdf\",\r\n    \"enterpriseName\": \"PoopayeSAC\",\r\n    \"enterpriseAdress\": \"San Lazaro\",\r\n    \"enterpriseDistrict\": \"Arequipa\",\r\n    \"enterpriseEmail\": \"hola@poopaye.com\",\r\n    \"enterpriseCeoName\": \"Bebo\",\r\n    \"enterpriseCeoLastName\": \"Pena Sanchez\",\r\n    \"driverDoctType\": \"DNI\",\r\n    \"driverDoc\": \"4614816515\",\r\n    \"driverName\": \"nombre\",\r\n    \"driverLastName\": \"apellido\",\r\n    \"driverBirthday\": \"11/11/11\",\r\n    \"driverAddess\": \"San Poronga\",\r\n    \"driverDistrict\": \"Concha de la lora\",\r\n    \"driverEmail\": \"shfs@ewww.com\",\r\n    \"driverPhone\": \"646515561\",\r\n    \"driverLicense\": \"416468846\",\r\n    \"carBrand\": \"Toyota\",\r\n    \"carModel\": \"Yaris\",\r\n    \"carColor\": \"Red\",\r\n    \"carYear\": \"2020\",\r\n    \"carEngine\": \"VSDIJVPDVS75DV5S\",\r\n    \"carSerie\": \"VLD4F8DF4D6F4F\",\r\n    \"carClass\": \"C486168\",\r\n    \"carService\": \"Remisse\",\r\n    \"carLicensePlate\": \"V2D451\",\r\n    \"carBillQualification\": \"25656165\",\r\n    \"carBillFeatures\": \"54165161\",\r\n    \"initDate\": \"2000-02-01T05:00:00.000Z\",\r\n    \"aproveDate\": null,\r\n    \"dueDate\": null,\r\n    \"companyStatus\": \"sended\",\r\n    \"canRenew\": false,\r\n    \"documents\": [\r\n      {\r\n        \"id\": \"docuemnt1\",\r\n        \"aproved\": false,\r\n        \"exempt\": true\r\n      },\r\n      {\r\n        \"id\": \"docuemnt2\",\r\n        \"aproved\": false,\r\n        \"exempt\": false\r\n      },\r\n      {\r\n        \"id\": \"docuemnt3\",\r\n        \"aproved\": false,\r\n        \"exempt\": false\r\n      },\r\n      {\r\n        \"id\": \"docuemnt4\",\r\n        \"aproved\": false,\r\n        \"exempt\": false\r\n      }\r\n    ],\r\n    \"resotion\": \"asdfsssdf.pdf\"\r\n  },\r\n  \"stageStatus\": \"new\",\r\n  \"stages\": [\r\n    {\r\n      \"name\": \"mesapartes\",\r\n      \"stageNumber\": 0,\r\n      \"current\": true,\r\n      \"status\": \"new\",\r\n      \"reviewed\": false,\r\n      \"obsMessage\": \"\"\r\n    },\r\n    {\r\n      \"name\": \"subCirc\",\r\n      \"stageNumber\": 1,\r\n      \"current\": false,\r\n      \"reviewed\": false,\r\n      \"obsMessage\": \"\"\r\n    },\r\n    {\r\n      \"name\": \"areaSetare\",\r\n      \"stageNumber\": 2,\r\n      \"current\": false,\r\n      \"reviewed\": false,\r\n      \"obsMessage\": \"\"\r\n    },\r\n    {\r\n      \"name\": \"subGerente\",\r\n      \"stageNumber\": 3,\r\n      \"current\": false,\r\n      \"reviewed\": false,\r\n      \"signed\": false,\r\n      \"obsMessage\": \"\"\r\n    },\r\n    {\r\n      \"name\": \"gerente\",\r\n      \"stageNumber\": 4,\r\n      \"current\": false,\r\n      \"reviewed\": false,\r\n      \"signed\": false,\r\n      \"obsMessage\": \"\"\r\n    },\r\n    {\r\n      \"name\": \"archivo\",\r\n      \"stageNumber\": 5,\r\n      \"current\": false,\r\n      \"reviewed\": false,\r\n      \"obsMessage\": \"\"\r\n    }\r\n  ],\r\n  \"companyStatus\": \"sended\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/procedure",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"procedure"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "updateOne",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"_id\": \"6209fb7b691e852198a1175b\",\r\n  \"company\": \"Hola MUndo SAC\",\r\n  \"procedureType\": \"HAB\",\r\n  \"currentStage\": 1,\r\n  \"ownerId\": 0,\r\n  \"data\": {\r\n    \"fut\": 1,\r\n    \"expNum\": \"1231231\",\r\n    \"ownerDocType\": \"12312312\",\r\n    \"ownerDoc\": \"12312312\",\r\n    \"ownerName\": \"nombre sape\",\r\n    \"ownerLastName\": \"apellido sape\",\r\n    \"ownerBirthday\": \"12-12-21\",\r\n    \"ownerAddress\": \"asdfas\",\r\n    \"ownerDistrict\": \"asdfas\",\r\n    \"ownerEmail\": \"eafsdsa@sape.com\",\r\n    \"ownerPhone\": \"asdfasdf\",\r\n    \"enterpriseName\": \"PoopayeSAC\",\r\n    \"enterpriseAdress\": \"San Lazaro\",\r\n    \"enterpriseDistrict\": \"Arequipa\",\r\n    \"enterpriseEmail\": \"hola@poopaye.com\",\r\n    \"enterpriseCeoName\": \"Bebo\",\r\n    \"enterpriseCeoLastName\": \"Pena Sanchez\",\r\n    \"driverDoctType\": \"DNI\",\r\n    \"driverDoc\": \"4614816515\",\r\n    \"driverName\": \"nombre\",\r\n    \"driverLastName\": \"apellido\",\r\n    \"driverBirthday\": \"11/11/11\",\r\n    \"driverAddess\": \"San Poronga\",\r\n    \"driverDistrict\": \"Concha de la lora\",\r\n    \"driverEmail\": \"shfs@ewww.com\",\r\n    \"driverPhone\": \"646515561\",\r\n    \"driverLicense\": \"416468846\",\r\n    \"carBrand\": \"Toyota\",\r\n    \"carModel\": \"Yaris\",\r\n    \"carColor\": \"Red\",\r\n    \"carYear\": \"2020\",\r\n    \"carEngine\": \"VSDIJVPDVS75DV5S\",\r\n    \"carSerie\": \"VLD4F8DF4D6F4F\",\r\n    \"carClass\": \"C486168\",\r\n    \"carService\": \"Remisse\",\r\n    \"carLicensePlate\": \"V2D451\",\r\n    \"carBillQualification\": \"25656165\",\r\n    \"carBillFeatures\": \"54165161\",\r\n    \"initDate\": \"2000-02-01T05:00:00.000Z\",\r\n    \"aproveDate\": null,\r\n    \"dueDate\": null,\r\n    \"companyStatus\": \"sended\",\r\n    \"canRenew\": false,\r\n    \"documents\": [\r\n      {\r\n        \"id\": \"docuemnt1\",\r\n        \"aproved\": false,\r\n        \"exempt\": true\r\n      },\r\n      {\r\n        \"id\": \"docuemnt2\",\r\n        \"aproved\": false,\r\n        \"exempt\": false\r\n      },\r\n      {\r\n        \"id\": \"docuemnt3\",\r\n        \"aproved\": false,\r\n        \"exempt\": false\r\n      },\r\n      {\r\n        \"id\": \"docuemnt4\",\r\n        \"aproved\": false,\r\n        \"exempt\": false\r\n      }\r\n    ],\r\n    \"resotion\": \"asdfsssdf.pdf\"\r\n  },\r\n  \"stageStatus\": \"new\",\r\n  \"stages\": [\r\n    {\r\n      \"name\": \"mesapartes\",\r\n      \"stageNumber\": 0,\r\n      \"current\": true,\r\n      \"status\": \"new\",\r\n      \"reviewed\": false,\r\n      \"obsMessage\": \"\"\r\n    },\r\n    {\r\n      \"name\": \"subCirc\",\r\n      \"stageNumber\": 1,\r\n      \"current\": false,\r\n      \"reviewed\": false,\r\n      \"obsMessage\": \"\"\r\n    },\r\n    {\r\n      \"name\": \"areaSetare\",\r\n      \"stageNumber\": 2,\r\n      \"current\": false,\r\n      \"reviewed\": false,\r\n      \"obsMessage\": \"\"\r\n    },\r\n    {\r\n      \"name\": \"subGerente\",\r\n      \"stageNumber\": 3,\r\n      \"current\": false,\r\n      \"reviewed\": false,\r\n      \"signed\": false,\r\n      \"obsMessage\": \"\"\r\n    },\r\n    {\r\n      \"name\": \"gerente\",\r\n      \"stageNumber\": 4,\r\n      \"current\": false,\r\n      \"reviewed\": false,\r\n      \"signed\": false,\r\n      \"obsMessage\": \"\"\r\n    },\r\n    {\r\n      \"name\": \"archivo\",\r\n      \"stageNumber\": 5,\r\n      \"current\": false,\r\n      \"reviewed\": false,\r\n      \"obsMessage\": \"\"\r\n    }\r\n  ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/procedure",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"procedure"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getAll",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{url}}/procedure?page=1&max=25",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"procedure"
+							],
+							"query": [
+								{
+									"key": "query",
+									"value": "nombre",
+									"disabled": true
+								},
+								{
+									"key": "sort",
+									"value": "data.ownerName:asc",
+									"disabled": true
+								},
+								{
+									"key": "filter",
+									"value": "stages[0].status:new",
+									"disabled": true
+								},
+								{
+									"key": "type",
+									"value": "HAB",
+									"disabled": true
+								},
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "max",
+									"value": "25"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getOne",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{url}}/procedure/620a964ff576883430067fb1",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"procedure",
+								"620a964ff576883430067fb1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "deleteOne",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{url}}/procedure/62316948be573610f814e3b8",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"procedure",
+								"62316948be573610f814e3b8"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getOneByPlate",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{url}}/procedure/plate/V2D451",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"procedure",
+								"plate",
+								"V2D451"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getAll - Resolution",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"company\": \"idCompany1\",\r\n  \"procedureType\": \"HAB\",\r\n  \"currentStage\": 0,\r\n  \"data\": {\r\n    \"fut\": 1,\r\n    \"expNum\": \"1231231\",\r\n    \"ownerDocType\": \"12312312\",\r\n    \"ownerDoc\": \"12312312\",\r\n    \"ownerName\": \"nombre sape\",\r\n    \"ownerLastName\": \"apellido sape\",\r\n    \"ownerBirthday\": \"12-12-21\",\r\n    \"ownerAddress\": \"asdfas\",\r\n    \"ownerDistrict\": \"asdfas\",\r\n    \"ownerEmail\": \"eafsdsa@sape.com\",\r\n    \"ownerPhone\": \"asdfasdf\",\r\n    \"enterpriseName\": \"PoopayeSAC\",\r\n    \"enterpriseAdress\": \"San Lazaro\",\r\n    \"enterpriseDistrict\": \"Arequipa\",\r\n    \"enterpriseEmail\": \"hola@poopaye.com\",\r\n    \"enterpriseCeoName\": \"Bebo\",\r\n    \"enterpriseCeoLastName\": \"Pena Sanchez\",\r\n    \"driverDoctType\": \"DNI\",\r\n    \"driverDoc\": \"4614816515\",\r\n    \"driverName\": \"nombre\",\r\n    \"driverLastName\": \"apellido\",\r\n    \"driverBirthday\": \"11/11/11\",\r\n    \"driverAddess\": \"San Poronga\",\r\n    \"driverDistrict\": \"Concha de la lora\",\r\n    \"driverEmail\": \"shfs@ewww.com\",\r\n    \"driverPhone\": \"646515561\",\r\n    \"driverLicense\": \"416468846\",\r\n    \"carBrand\": \"Toyota\",\r\n    \"carModel\": \"Yaris\",\r\n    \"carColor\": \"Red\",\r\n    \"carYear\": \"2020\",\r\n    \"carEngine\": \"VSDIJVPDVS75DV5S\",\r\n    \"carSerie\": \"VLD4F8DF4D6F4F\",\r\n    \"carClass\": \"C486168\",\r\n    \"carService\": \"Remisse\",\r\n    \"carLicensePlate\": \"V2D451\",\r\n    \"carBillQualification\": \"25656165\",\r\n    \"carBillFeatures\": \"54165161\",\r\n    \"initDate\": \"2000-02-01T05:00:00.000Z\",\r\n    \"aproveDate\": null,\r\n    \"dueDate\": null,\r\n    \"companyStatus\": \"sended\",\r\n    \"canRenew\": false,\r\n    \"documents\": [\r\n      {\r\n        \"id\": \"docuemnt1\",\r\n        \"aproved\": false,\r\n        \"exempt\": true\r\n      },\r\n      {\r\n        \"id\": \"docuemnt2\",\r\n        \"aproved\": false,\r\n        \"exempt\": false\r\n      },\r\n      {\r\n        \"id\": \"docuemnt3\",\r\n        \"aproved\": false,\r\n        \"exempt\": false\r\n      },\r\n      {\r\n        \"id\": \"docuemnt4\",\r\n        \"aproved\": false,\r\n        \"exempt\": false\r\n      }\r\n    ],\r\n    \"resotion\": \"asdfsssdf.pdf\"\r\n  },\r\n  \"stageStatus\": \"new\",\r\n  \"stages\": [\r\n    {\r\n      \"name\": \"mesapartes\",\r\n      \"stageNumber\": 0,\r\n      \"current\": true,\r\n      \"status\": \"new\",\r\n      \"reviewed\": false,\r\n      \"obsMessage\": \"\"\r\n    },\r\n    {\r\n      \"name\": \"subCirc\",\r\n      \"stageNumber\": 1,\r\n      \"current\": false,\r\n      \"reviewed\": false,\r\n      \"obsMessage\": \"\"\r\n    },\r\n    {\r\n      \"name\": \"areaSetare\",\r\n      \"stageNumber\": 2,\r\n      \"current\": false,\r\n      \"reviewed\": false,\r\n      \"obsMessage\": \"\"\r\n    },\r\n    {\r\n      \"name\": \"subGerente\",\r\n      \"stageNumber\": 3,\r\n      \"current\": false,\r\n      \"reviewed\": false,\r\n      \"signed\": false,\r\n      \"obsMessage\": \"\"\r\n    },\r\n    {\r\n      \"name\": \"gerente\",\r\n      \"stageNumber\": 4,\r\n      \"current\": false,\r\n      \"reviewed\": false,\r\n      \"signed\": false,\r\n      \"obsMessage\": \"\"\r\n    },\r\n    {\r\n      \"name\": \"archivo\",\r\n      \"stageNumber\": 5,\r\n      \"current\": false,\r\n      \"reviewed\": false,\r\n      \"obsMessage\": \"\"\r\n    }\r\n  ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/procedure/resolution?page=1&max=25",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"procedure",
+								"resolution"
+							],
+							"query": [
+								{
+									"key": "query",
+									"value": "nombre",
+									"disabled": true
+								},
+								{
+									"key": "sort",
+									"value": "data.ownerName:asc",
+									"disabled": true
+								},
+								{
+									"key": "filter",
+									"value": "companyStatus:sended",
+									"disabled": true
+								},
+								{
+									"key": "type",
+									"value": "HAB",
+									"disabled": true
+								},
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "max",
+									"value": "25"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Auth",
+			"item": [
+				{
+					"name": "login",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test('Status code is 200', () => {\r",
+									"    pm.response.to.have.status(200)\r",
+									"})\r",
+									"\r",
+									"pm.test('Response is JSON', () => {\r",
+									"    pm.response.to.be.json\r",
+									"})\r",
+									"\r",
+									"pm.test('Response contains JWT', () => {\r",
+									"    pm.response.to.have.jsonBody('data.token')\r",
+									"    pm.environment.unset('token')\r",
+									"    let json = JSON.parse(responseBody)\r",
+									"    postman.setEnvironmentVariable('token', `Bearer ${json.data.token}`)\r",
+									"})\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"user\": \"client\",\r\n    \"pass\": \"client2022\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/auth/login",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"auth",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "validate",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{url}}/auth/validate",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"auth",
+								"validate"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "User",
+			"item": [
+				{
+					"name": "sign",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{url}}/user/sign",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"user",
+								"sign"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "signById",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{url}}/user/62427bb7f97be3285413959a/sign",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"user",
+								"62427bb7f97be3285413959a",
+								"sign"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getDNI",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{url}}/user/reniec?dni=73051588",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"user",
+								"reniec"
+							],
+							"query": [
+								{
+									"key": "dni",
+									"value": "73051588"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getRUC",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{url}}/user/sunat?ruc=10730515885",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"user",
+								"sunat"
+							],
+							"query": [
+								{
+									"key": "ruc",
+									"value": "10730515885"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "createOne",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"role\": \"admin\",\r\n    \"name\": \"Admin\",\r\n    \"user\": \"administracion\",\r\n    \"pass\": \"administracion2022\",\r\n    \"email\": \"admin@muniarequipa.gob.pe\",\r\n    \"companyCode\": \"1234\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/user",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"user"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "updateOne",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"role\": \"admin\",\r\n    \"name\": \"Admin 2\",\r\n    \"user\": \"administracion\",\r\n    \"pass\": \"administracion2022\",\r\n    \"email\": \"admin@muniarequipa.gob.pe\",\r\n    \"companyCode\": \"1234\",\r\n    \"sign\": \"signs/sign.png\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/user/624279c0ef151c39acbf291e",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"user",
+								"624279c0ef151c39acbf291e"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getAll",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{url}}/user?page=1&max=2",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"user"
+							],
+							"query": [
+								{
+									"key": "query",
+									"value": "client",
+									"disabled": true
+								},
+								{
+									"key": "sort",
+									"value": "data.initDate:desc",
+									"disabled": true
+								},
+								{
+									"key": "filter",
+									"value": "company:idCompany1",
+									"disabled": true
+								},
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "max",
+									"value": "2"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getOne",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{url}}/user/6237b3742996d04eccce7451",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"user",
+								"6237b3742996d04eccce7451"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "deleteOne",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{url}}/user/624279c0ef151c39acbf291e",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"user",
+								"624279c0ef151c39acbf291e"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
