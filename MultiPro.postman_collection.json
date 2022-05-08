@@ -1,0 +1,393 @@
+{
+	"info": {
+		"_postman_id": "401b7dcb-6824-4a4a-8b12-fce449c1c1d6",
+		"name": "MultiPro",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Auth",
+			"item": [
+				{
+					"name": "Login",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test('Status code is 200', () => {\r",
+									"    pm.response.to.have.status(200)\r",
+									"})\r",
+									"\r",
+									"pm.test('Response is JSON', () => {\r",
+									"    pm.response.to.be.json\r",
+									"})\r",
+									"\r",
+									"pm.test('Response contains JWT', () => {\r",
+									"    pm.response.to.have.jsonBody('data.token')\r",
+									"    pm.environment.unset('TOKEN')\r",
+									"    let json = JSON.parse(responseBody)\r",
+									"    postman.setEnvironmentVariable('TOKEN', json.data.token)\r",
+									"})\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"user\": \"{{USER}}\",\r\n    \"pass\": \"{{PASS}}\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL}}/auth/login",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"auth",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Validate",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{TOKEN}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{URL}}/auth/validate",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"auth",
+								"validate"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "User",
+			"item": [
+				{
+					"name": "CreateOne",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{TOKEN}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"role\": \"admin\",\r\n    \"name\": \"Admin\",\r\n    \"user\": \"73051588\",\r\n    \"pass\": \"1234\",\r\n    \"email\": \"fran@izzi.pe\",\r\n    \"color\": \"FF000000\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL}}/user",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"user"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "UpdateOne",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{TOKEN}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"role\": \"admin\",\r\n    \"name\": \"Admin\",\r\n    \"user\": \"73051588\",\r\n    \"pass\": \"1234\",\r\n    \"email\": \"fran@izzi.pe\",\r\n    \"color\": \"FF000000\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL}}/user/626dd8ab63ddc13fa44bfe8e",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"user",
+								"626dd8ab63ddc13fa44bfe8e"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetAll",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{TOKEN}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{URL}}/user?query=admin&sort=createdAt:desc&filter=role:client&page=1&max=4",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"user"
+							],
+							"query": [
+								{
+									"key": "query",
+									"value": "admin"
+								},
+								{
+									"key": "sort",
+									"value": "createdAt:desc"
+								},
+								{
+									"key": "filter",
+									"value": "role:client"
+								},
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "max",
+									"value": "4"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetOne",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{TOKEN}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{URL}}/user/62655799b070b20fdaf00b0d",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"user",
+								"62655799b070b20fdaf00b0d"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DeleteOne",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{TOKEN}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{URL}}/user/626dd7b99cc270278c7e0d48",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"user",
+								"626dd7b99cc270278c7e0d48"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Locations",
+			"item": [
+				{
+					"name": "CreateOne",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{TOKEN}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"lat\": \"-16.0\",\r\n    \"lng\": \"-71.0\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL}}/location",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"location"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetAll",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{TOKEN}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{URL}}/location?sort=createdAt:desc&filter=userId:62655799b070b20fdaf00b0d&start=2022-04-30T07:00:00-04:00&end=2022-04-30T23:00:00-04:00&page=1&max=2",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"location"
+							],
+							"query": [
+								{
+									"key": "query",
+									"value": "admin",
+									"disabled": true
+								},
+								{
+									"key": "sort",
+									"value": "createdAt:desc"
+								},
+								{
+									"key": "filter",
+									"value": "userId:62655799b070b20fdaf00b0d"
+								},
+								{
+									"key": "start",
+									"value": "2022-04-30T07:00:00-04:00"
+								},
+								{
+									"key": "end",
+									"value": "2022-04-30T23:00:00-04:00"
+								},
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "max",
+									"value": "2"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetTracker",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{TOKEN}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{URL}}/location/tracker?page=1&max=2",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"location",
+								"tracker"
+							],
+							"query": [
+								{
+									"key": "query",
+									"value": "admin",
+									"disabled": true
+								},
+								{
+									"key": "sort",
+									"value": "createdAt:desc",
+									"disabled": true
+								},
+								{
+									"key": "filter",
+									"value": "userId:62655799b070b20fdaf00b0d",
+									"disabled": true
+								},
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "max",
+									"value": "2"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}

@@ -1,0 +1,17 @@
+name: Deploy to Staging
+on: [push]
+jobs:
+  Deploy-to-Staging:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    
+    - name: Deploy to Staging
+      uses: Techie-Pi/node-vps-deployment@main
+      with:
+        remote-path: "~/${{ secrets.STAGING_PATH }}"
+        host: ${{ secrets.STAGING_HOST }}
+        username: ${{ secrets.STAGING_USERNAME }}
+        password: ${{ secrets.STAGING_PASSWORD }}
+        port: ${{ secrets.STAGING_PORT }}
+        pm2-id: ${{ secrets.STAGING_PM2_ID }}

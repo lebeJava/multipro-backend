@@ -4,8 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "nodemon index",
-    "start": "set NODE_ENV=production && node index",
+    "dev": "set NODE_ENV=development && nodemon index",
+    "start": "node index",
     "test": "mocha --exit"
   },
   "keywords": [],

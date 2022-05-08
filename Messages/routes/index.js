@@ -1,30 +1,30 @@
 const express = require("express");
-const { LocationService } = require("../services/index.js");
+const { MessagesService } = require("../services/index.js");
 
 const { jwtHandler } = require("../../utils/middleware/jwtHandler");
 const { authHandler } = require("../../utils/middleware/authHandler.js");
 
-function locationApi(app) {
+function messagesApi(app) {
   const router = express.Router();
-  app.use("/location", router);
+  app.use("/messages", router);
 
-  const locationService = new LocationService();
+  const messagesService = new MessagesService();
 
-  // Create
-  router.post("/message", jwtHandler, authHandler, async (req, res) => {
+  // User create one
+  router.post("/", jwtHandler, authHandler, async (req, res) => {
     const user = req.token;
-    const json = req.body;
+    const { lat, lng, msg } = req.body;
     try {
-      const msg = await locationService.createMessage({ user, json });
-      if (procedure.msg === "ok") {
-        res.status(200).json({
-          msg: procedure.msg,
-          data: procedure.data,
+      const result = await messagesService.createOne({ user, lat, lng, msg });
+      if (result.msg == "ok") {
+        res.json({
+          msg: "ok",
+          data: result.data,
         });
       } else {
-        res.status(500).json({
-          msg: procedure.msg,
-          data: procedure.data,
+        res.json({
+          msg: "error",
+          data: result.data,
         });
       }
     } catch (err) {
@@ -35,29 +35,30 @@ function locationApi(app) {
     }
   });
 
-  // List
+  // User get all
   router.get("/", jwtHandler, authHandler, async (req, res) => {
     const user = req.token;
-    const { query, sort, filter, type, page, max } = req.query;
+    const { query, sort, filter, start, end, page, max } = req.query;
     try {
-      const procedure = await procedureService.read({
+      const result = await messagesService.getAll({
         user,
         query,
         sort,
         filter,
-        type,
+        start,
+        end,
         page,
         max,
       });
-      if (procedure.msg === "ok") {
-        res.status(200).json({
-          msg: procedure.msg,
-          data: procedure.data,
+      if (result.msg == "ok") {
+        res.json({
+          msg: "ok",
+          data: result.data,
         });
       } else {
-        res.status(500).json({
-          msg: procedure.msg,
-          data: procedure.data,
+        res.json({
+          msg: "error",
+          data: result.data,
         });
       }
     } catch (err) {
@@ -68,22 +69,108 @@ function locationApi(app) {
     }
   });
 
-  // Delete One
-  router.delete("/:id", async (req, res) => {
-    const { id } = req.params;
+  // User get tracker
+  router.get("/tracker", jwtHandler, authHandler, async (req, res) => {
+    const user = req.token;
+    const { query, sort, filter, page, max } = req.query;
     try {
-      const procedure = await procedureService.delete({
-        id,
+      const result = await messagesService.getTracker({
+        user,
+        query,
+        sort,
+        filter,
+        page,
+        max,
       });
-      if (procedure.msg === "ok") {
-        res.status(200).json({
-          msg: procedure.msg,
-          data: procedure.data,
+      if (result.msg == "ok") {
+        res.json({
+          msg: "ok",
+          data: result.data,
         });
       } else {
-        res.status(500).json({
-          msg: procedure.msg,
-          data: procedure.data,
+        res.json({
+          msg: "error",
+          data: result.data,
+        });
+      }
+    } catch (err) {
+      res.status(500).json({
+        msg: "error",
+        data: err.message,
+      });
+    }
+  });
+
+  // User get one
+  router.get("/:userId", jwtHandler, authHandler, async (req, res) => {
+    const user = req.token;
+    const { userId } = req.params;
+    try {
+      const result = await messagesService.getOneById({ user, id: userId });
+      if (result.msg == "ok") {
+        res.json({
+          msg: "ok",
+          data: result.data,
+        });
+      } else {
+        res.json({
+          msg: "error",
+          data: result.data,
+        });
+      }
+    } catch (err) {
+      res.status(500).json({
+        msg: "error",
+        data: err.message,
+      });
+    }
+  });
+
+  // User update one
+  router.put("/:userId", jwtHandler, authHandler, async (req, res) => {
+    const user = req.token;
+    const { userId } = req.params;
+    const json = req.body;
+    try {
+      const result = await messagesService.updateOne({
+        user,
+        id: userId,
+        json,
+      });
+      if (result.msg == "ok") {
+        res.json({
+          msg: "ok",
+          data: result.data,
+        });
+      } else {
+        res.json({
+          msg: "error",
+          data: result.data,
+        });
+      }
+    } catch (err) {
+      res.status(500).json({
+        msg: "error",
+        data: err.message,
+      });
+    }
+  });
+
+  // User delete one
+  router.delete("/:userId", jwtHandler, authHandler, async (req, res) => {
+    const user = req.token;
+    const { userId } = req.params;
+    try {
+      const result = await messagesService.deleteOne({ user, id: userId });
+      if (result.msg == "ok") {
+        res.json({
+          msg: "ok",
+          data: result.data,
+        });
+      } else {
+        res.json({
+          msg: "error",
+          data: result.data,
         });
       }
     } catch (err) {
@@ -95,4 +182,4 @@ function locationApi(app) {
   });
 }
 
-module.exports = { locationApi };
+module.exports = { messagesApi };
