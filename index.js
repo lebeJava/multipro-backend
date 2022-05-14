@@ -4,7 +4,7 @@ const cookieParser = require("cookie-parser");
 const morgan = require("morgan");
 const cors = require("cors");
 const CronJob = require("cron").CronJob;
-const socket = require('./utils/socket')
+const socket = require("./utils/socket");
 
 // test
 /*const { exec } = require('child_process')
@@ -20,6 +20,8 @@ const { authApi } = require("./Auth/routes");
 const { userApi } = require("./User/routes");
 const { filesApi } = require("./Files/routes");
 const { locationApi } = require("./Location/routes");
+const { messagesApi } = require("./Messages/routes");
+
 // const workspacesApi = require('./routes/workspaces.js')
 //const { ProcedureService } = require("./Location/services/index.js");
 
@@ -52,6 +54,7 @@ authApi(app);
 userApi(app);
 filesApi(app);
 locationApi(app);
+messagesApi(app);
 
 //usersApi(api);
 
@@ -155,11 +158,11 @@ aaa()*/
 
 socket.connect(server, {
   cors: {
-    origin: '*',
+    origin: "*",
   },
   pingInterval: 10000,
   pingTimeout: 5000,
-})
+});
 
 /*const io = require('socket.io')(server, {
   cors: {

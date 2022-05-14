@@ -13,9 +13,26 @@ function locationApi(app) {
   // User create one
   router.post("/", jwtHandler, authHandler, async (req, res) => {
     const user = req.token;
-    const { lat, lng  } = req.body;
+    const {
+      latitude,
+      longitude,
+      accuracy,
+      altitude,
+      bearing,
+      speed,
+      grpDateTime,
+    } = req.body;
     try {
-      const result = await locationService.createOne({ user, lat, lng });
+      const result = await locationService.createOne({
+        user,
+        latitude,
+        longitude,
+        accuracy,
+        altitude,
+        bearing,
+        speed,
+        grpDateTime,
+      });
       if (result.msg == "ok") {
         res.json({
           msg: "ok",
@@ -132,7 +149,11 @@ function locationApi(app) {
     const { userId } = req.params;
     const json = req.body;
     try {
-      const result = await locationService.updateOne({ user, id: userId, json });
+      const result = await locationService.updateOne({
+        user,
+        id: userId,
+        json,
+      });
       if (result.msg == "ok") {
         res.json({
           msg: "ok",

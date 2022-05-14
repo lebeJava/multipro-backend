@@ -3,97 +3,65 @@ const MongoLib = require("../../lib/mongo");
 const { ObjectId } = require("mongodb");
 const { FilesService } = require("../../Files/services");
 const { RequestLib } = require("../../lib/request");
-const { socket } = require("../../utils/socket");
+const { LocationService } = require("../../Location/services");
 
 class MessagesService {
   constructor() {
     this.mongoDB = new MongoLib();
     this.filesService = new FilesService();
     this.requestLib = new RequestLib();
+    this.locationService = new LocationService();
     this.collection = "messages";
   }
 
-  async createOne({ user, lat, lng }) {
+  async createOne({
+    user,
+    latitude,
+    longitude,
+    accuracy,
+    altitude,
+    bearing,
+    speed,
+    gpsDateTime,
+    message,
+  }) {
     const createdAt = parseInt(moment().format("x"));
     const createdBy = user.id;
 
     try {
-      const found = await this.mongoDB.getOneSort(
-        this.collection,
-        {
-          userId: user.id,
-        },
-        {
-          createdAt: -1,
-        }
-      );
+      const location = await this.locationService.createOne({
+        user,
+        latitude,
+        longitude,
+        accuracy,
+        altitude,
+        bearing,
+        speed,
+        gpsDateTime,
+        message,
+      });
 
+      if (location.msg != "ok") {
+        return {
+          msg: "error",
+          data: location.data,
+        };
+      }
       let result = {};
 
-      if (
-        found.length > 0 &&
-        found[0].lat == lat &&
-        found[0].lng == lng &&
-        moment().diff(moment.unix(found[0].dls / 1000), "hours") == 0
-      ) {
-        const id = found[0]._id;
+      const json2Save = {
+        latitude,
+        longitude,
+        userId: user.id,
+        iat: parseInt(moment().format("x")),
+        dls: parseInt(moment().format("x")),
+        message,
+        createdAt,
+        createdBy,
+      };
 
-        const json2Update = {
-          dls: parseInt(moment().format("x")),
-          updatedAt: createdAt,
-          updatedBy: createdBy,
-        };
-
-        const tracker = await this.mongoDB.getOne(this.tracker, {
-          userId: user.id,
-        });
-        if (tracker) {
-          result = {
-            ...tracker,
-          }
-          await this.mongoDB.updateOne(this.tracker, tracker._id, json2Update);
-        } else {
-          result = {
-            ...found,
-          }
-          await this.mongoDB.insertOne(this.tracker, json2Update);
-        }
-
-        const updateId = await this.mongoDB.updateOne(this.collection, id, json2Update);
-        result['_id'] = updateId
-      } else {
-        const json2Save = {
-          lat,
-          lng,
-          userId: user.id,
-          iat: parseInt(moment().format("x")),
-          dls: parseInt(moment().format("x")),
-          msg: [],
-          createdAt,
-          createdBy,
-        };
-
-        const tracker = await this.mongoDB.getOne(this.tracker, {
-          userId: user.id,
-        });
-        if (tracker) {
-          result = {
-            ...tracker,
-          }
-          await this.mongoDB.updateOne(this.tracker, tracker._id, json2Save);
-        } else {
-          result = {
-            ...json2Save,
-          }
-          await this.mongoDB.insertOne(this.tracker, json2Save);
-        }
-        const createId = await this.mongoDB.insertOne(this.collection, json2Save);
-        result['_id'] = createId
-      }
-
-      socket.io.emit('tracker', {
-        result,
-      })
+      const createId = await this.mongoDB.insertOne(this.collection, json2Save);
+      result["_id"] = createId;
 
       return {
         msg: "ok",

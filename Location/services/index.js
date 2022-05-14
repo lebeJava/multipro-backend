@@ -14,10 +14,19 @@ class LocationService {
     this.tracker = "tracker";
   }
 
-  async createOne({ user, lat, lng }) {
+  async createOne({
+    user,
+    latitude,
+    longitude,
+    accuracy,
+    altitude,
+    bearing,
+    speed,
+    gpsDateTime,
+    message,
+  }) {
     const createdAt = parseInt(moment().format("x"));
     const createdBy = user.id;
-
     try {
       const found = await this.mongoDB.getOneSort(
         this.collection,
@@ -33,16 +42,21 @@ class LocationService {
 
       if (
         found.length > 0 &&
-        found[0].lat == lat &&
-        found[0].lng == lng &&
+        found[0].latitude == latitude &&
+        found[0].longitude == longitude &&
         moment().diff(moment.unix(found[0].dls / 1000), "hours") == 0
       ) {
         const id = found[0]._id;
+
+        if (message) {
+          found[0].messages.push(message);
+        }
 
         const json2Update = {
           dls: parseInt(moment().format("x")),
           updatedAt: createdAt,
           updatedBy: createdBy,
+          messages: found.messages,
         };
 
         const tracker = await this.mongoDB.getOne(this.tracker, {
@@ -51,25 +65,38 @@ class LocationService {
         if (tracker) {
           result = {
             ...tracker,
-          }
+          };
           await this.mongoDB.updateOne(this.tracker, tracker._id, json2Update);
         } else {
           result = {
             ...found,
-          }
+          };
           await this.mongoDB.insertOne(this.tracker, json2Update);
         }
 
-        const updateId = await this.mongoDB.updateOne(this.collection, id, json2Update);
-        result['_id'] = updateId
+        const updateId = await this.mongoDB.updateOne(
+          this.collection,
+          id,
+          json2Update
+        );
+        result["_id"] = updateId;
       } else {
+        const messages = [];
+        if (message) {
+          messages.push(message);
+        }
         const json2Save = {
-          lat,
-          lng,
+          latitude,
+          longitude,
+          accuracy,
+          altitude,
+          bearing,
+          speed,
+          gpsDateTime,
           userId: user.id,
           iat: parseInt(moment().format("x")),
           dls: parseInt(moment().format("x")),
-          msg: [],
+          messages,
           createdAt,
           createdBy,
         };
@@ -80,21 +107,26 @@ class LocationService {
         if (tracker) {
           result = {
             ...tracker,
-          }
+          };
           await this.mongoDB.updateOne(this.tracker, tracker._id, json2Save);
         } else {
           result = {
             ...json2Save,
-          }
+          };
           await this.mongoDB.insertOne(this.tracker, json2Save);
         }
-        const createId = await this.mongoDB.insertOne(this.collection, json2Save);
-        result['_id'] = createId
+        const createId = await this.mongoDB.insertOne(
+          this.collection,
+          json2Save
+        );
+        result["_id"] = createId;
       }
 
-      socket.io.emit('tracker', {
-        result,
-      })
+      try {
+        socket.io.emit("tracker", {
+          result,
+        });
+      } catch (e) {}
 
       return {
         msg: "ok",
@@ -137,9 +169,9 @@ class LocationService {
         $and: [
           {
             $or: [
-              { lat: { $regex: new RegExp("^" + query, "i") } },
+              { latitude: { $regex: new RegExp("^" + query, "i") } },
               {
-                lng: { $regex: new RegExp("^" + query, "i") },
+                longitude: { $regex: new RegExp("^" + query, "i") },
               },
               { userId: { $regex: new RegExp("^" + query, "i") } },
             ],
@@ -264,9 +296,9 @@ class LocationService {
         $and: [
           {
             $or: [
-              { lat: { $regex: new RegExp("^" + query, "i") } },
+              { latitude: { $regex: new RegExp("^" + query, "i") } },
               {
-                lng: { $regex: new RegExp("^" + query, "i") },
+                longitude: { $regex: new RegExp("^" + query, "i") },
               },
               { userId: { $regex: new RegExp("^" + query, "i") } },
             ],
@@ -374,7 +406,7 @@ class LocationService {
     }
   }
 
-  async addOneMessage({ user, msg }) {
+  async addOneMessage({ user, message }) {
     const updatedAt = parseInt(moment().format("x"));
     const updatedBy = user.id;
 
@@ -397,10 +429,10 @@ class LocationService {
       }
 
       const json2Update = {
-        msg: [
-          ...locationFound.msg,
+        messages: [
+          ...locationFound.messages,
           {
-            msg,
+            message,
             iat: parseInt(moment().format("x")),
           },
         ],
