@@ -252,13 +252,16 @@ class LocationService {
         if (list[i].data?.createdAt)
           list[i].data.createdAt = new Date(list[i].data.createdAt);
 
-        user = await this.userService.getOneById({ user, id: list[i]._id });
+        let currentUser = await this.userService.getOneById({
+          user,
+          id: list[i].id,
+        });
 
-        user = user.msg == "ok" ? user.data : null;
+        currentUser = currentUser.msg == "ok" ? currentUser.data : null;
 
         result.push({
           ...list[i],
-          user,
+          user: currentUser,
         });
 
         result.push({
@@ -366,13 +369,16 @@ class LocationService {
         if (list[i].data?.createdAt)
           list[i].data.createdAt = new Date(list[i].data.createdAt);
 
-        user = await this.userService.getOneById({ user, id: list[i].id });
+        let currentUser = await this.userService.getOneById({
+          user,
+          id: list[i].id,
+        });
 
-        user = user.msg == "ok" ? user.data : null;
+        currentUser = currentUser.msg == "ok" ? currentUser.data : null;
 
         result.push({
           ...list[i],
-          user,
+          user: currentUser,
         });
       }
 
