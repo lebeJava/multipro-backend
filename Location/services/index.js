@@ -124,7 +124,7 @@ class LocationService {
 
       try {
         socket.io.emit("tracker", {
-          result,
+          ...result,
         });
       } catch (e) {}
 

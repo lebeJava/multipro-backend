@@ -13,12 +13,11 @@
       crossorigin="anonymous"
     ></script>
     <script>
-      var socket = io();
+      var socket = io("", { transports: ["websocket"] });
 
-      socket.on('tracker', (data) => {
-        console.log(data)
+      socket.on("tracker", (data) => {
+        console.log(data);
       });
-      
     </script>
   </body>
 </html>
