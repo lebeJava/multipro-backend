@@ -254,7 +254,7 @@ class LocationService {
 
         let currentUser = await this.userService.getOneById({
           user,
-          id: list[i].id,
+          id: list[i].userId,
         });
 
         currentUser = currentUser.msg == "ok" ? currentUser.data : null;
@@ -371,7 +371,7 @@ class LocationService {
 
         let currentUser = await this.userService.getOneById({
           user,
-          id: list[i].id,
+          id: list[i].userId,
         });
 
         currentUser = currentUser.msg == "ok" ? currentUser.data : null;
