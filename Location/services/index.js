@@ -43,7 +43,7 @@ class LocationService {
       const found = await this.mongoDB.getOneSort(
         this.collection,
         {
-          userId: user.id,
+          userId: user._id,
         },
         {
           createdAt: -1,
@@ -72,7 +72,7 @@ class LocationService {
         };
 
         const tracker = await this.mongoDB.getOne(this.tracker, {
-          userId: user.id,
+          userId: user._id,
         });
         if (tracker) {
           result = {
@@ -107,7 +107,7 @@ class LocationService {
           bearing,
           speed,
           gpsDateTime,
-          userId: user.id,
+          userId: user._id,
           iat: parseInt(moment().format("x")),
           dls: parseInt(moment().format("x")),
           messages,
@@ -116,7 +116,7 @@ class LocationService {
         };
 
         const tracker = await this.mongoDB.getOne(this.tracker, {
-          userId: user.id,
+          userId: user._id,
         });
         if (tracker) {
           result = {
