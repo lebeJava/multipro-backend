@@ -3,6 +3,7 @@ const MongoLib = require("../../lib/mongo");
 const { ObjectId } = require("mongodb");
 const { FilesService } = require("../../Files/services");
 const { RequestLib } = require("../../lib/request");
+const { UserService } = require("../../User/services");
 const { socket } = require("../../utils/socket");
 
 class LocationService {
@@ -10,6 +11,7 @@ class LocationService {
     this.mongoDB = new MongoLib();
     this.filesService = new FilesService();
     this.requestLib = new RequestLib();
+    this.userService = new UserService();
     this.collection = "locations";
     this.tracker = "tracker";
   }
@@ -28,6 +30,16 @@ class LocationService {
     const createdAt = parseInt(moment().format("x"));
     const createdBy = user.id;
     try {
+      user = await this.userService.getOneById({ user, id: user.id });
+      if (user.msg != "ok") {
+        return {
+          msg: "error",
+          data: "User not found",
+        };
+      }
+
+      user = user.data;
+
       const found = await this.mongoDB.getOneSort(
         this.collection,
         {
@@ -67,19 +79,21 @@ class LocationService {
             ...tracker,
           };
           await this.mongoDB.updateOne(this.tracker, tracker._id, json2Update);
+          result["_id"] = tracker._id;
+          result["user"] = user;
         } else {
           result = {
             ...found,
           };
-          await this.mongoDB.insertOne(this.tracker, json2Update);
+          const createId = await this.mongoDB.insertOne(
+            this.tracker,
+            json2Update
+          );
+          result["_id"] = createId;
+          result["user"] = user;
         }
 
-        const updateId = await this.mongoDB.updateOne(
-          this.collection,
-          id,
-          json2Update
-        );
-        result["_id"] = updateId;
+        await this.mongoDB.updateOne(this.collection, id, json2Update);
       } else {
         const messages = [];
         if (message) {
@@ -109,17 +123,20 @@ class LocationService {
             ...tracker,
           };
           await this.mongoDB.updateOne(this.tracker, tracker._id, json2Save);
+          result["_id"] = tracker._id;
+          result["user"] = user;
         } else {
           result = {
             ...json2Save,
           };
-          await this.mongoDB.insertOne(this.tracker, json2Save);
+          const createId = await this.mongoDB.insertOne(
+            this.tracker,
+            json2Save
+          );
+          result["_id"] = createId;
+          result["user"] = user;
         }
-        const createId = await this.mongoDB.insertOne(
-          this.collection,
-          json2Save
-        );
-        result["_id"] = createId;
+        await this.mongoDB.insertOne(this.collection, json2Save);
       }
 
       try {
